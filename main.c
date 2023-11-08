@@ -11,12 +11,12 @@ int main(int argc, char *argv[], char *env[])
 	char buffer[BUFFER_SIZE];
 
 	(void)argc;
-	(void)argv;
-	(void)env;
+
 	while (1)
 	{
 		_write_buffer("basma_shell$ ");
 		get_input(buffer, sizeof(buffer));
+		run_command(buffer, argv, env);
 	}
 	return (0);
 }
@@ -43,5 +43,4 @@ void get_input(char *buffer, size_t bufsize)
 			exit(EXIT_FAILURE);
 		}
 	}
-	_write_buffer(buffer);
 }
