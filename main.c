@@ -9,6 +9,7 @@
 int main(int argc, char *argv[], char *env[])
 {
 	char buffer[BUFFER_SIZE];
+
 	while (true)
 	{
 		_write_buffer("basma_shell$ ");
@@ -25,6 +26,7 @@ int main(int argc, char *argv[], char *env[])
 void get_input(char *buffer, size_t bufsize)
 {
 	int characters = getline(&buffer, &bufsize, stdin);
+
 	if (characters)
 	{
 		command[strcspn(buffer, "\n")] = '\0';
