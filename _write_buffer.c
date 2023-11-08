@@ -3,9 +3,9 @@
 /**
  * _write_buffer - write character
  * @c: charcter to concatenate
- * Return: void
+ * Return: number of printed chars
  */
-void _write_buffer(char *c)
+int _write_buffer(char *c)
 {
 	return (write(STDOUT_FILENO, c, str_length(c)));
 }

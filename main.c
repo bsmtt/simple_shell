@@ -30,7 +30,7 @@ void get_input(char *buffer, size_t bufsize)
 	if (characters)
 	{
 		command[strcspn(buffer, "\n")] = '\0';
-		_write_buffer("'%s'\n", buffer);
+		_write_buffer(buffer);
 	}
 
 	if (feof(stdin))
