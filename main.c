@@ -10,9 +10,9 @@ int main(int argc, char *argv[], char *env[])
 {
 	char buffer[BUFFER_SIZE];
 
-	(void) argc;
-	(void) argv;
-	(void) env;
+	(void)argc;
+	(void)argv;
+	(void)env;
 	while (1)
 	{
 		_write_buffer("basma_shell$ ");
@@ -30,20 +30,19 @@ void get_input(char *buffer, size_t bufsize)
 {
 	int characters = getline(&buffer, &bufsize, stdin);
 
-	if (characters)
+	if (!characters)
 	{
-		buffer[strcspn(buffer, "\n")] = '\0';
-		_write_buffer(buffer);
+		if (feof(stdin))
+		{
+			_write_buffer("\n");
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			_write_buffer("error");
+			exit(EXIT_FAILURE);
+		}
 	}
-
-	if (feof(stdin))
-	{
-		_write_buffer("\n");
-		exit(EXIT_SUCCESS);
-	}
-	else
-	{
-		_write_buffer("error");
-		exit(EXIT_FAILURE);
-	}
+	buffer[strcspn(buffer, "\n")] = '\0';
+	_write_buffer(buffer);
 }
