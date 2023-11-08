@@ -21,10 +21,14 @@ void run_command(const char *buffer, char **argv, char *env[])
 	else if (pid == 0)
 	{
 		snprintf(path, sizeof(path), "/bin/%s", buffer);
-		printf("%s", path);
 		execve(path, argv, env);
-		perror("execve");
-		exit(EXIT_FAILURE);
+		if (strcmp(path, "/bin/") != 0)
+    		{
+			execve(path, argv, env);
+			perror("execve");
+			exit(EXIT_FAILURE);
+
+    		}
 	}
 	else
 	{
