@@ -14,7 +14,7 @@
 
 #define BUFFER_SIZE 1024
 
-void _write_buffer(char c);
+int _write_buffer(char *c);
 void prompt_msg(void);
 
 int str_length(char *c);

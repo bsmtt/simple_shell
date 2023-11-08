@@ -7,8 +7,9 @@
  */
 int str_length(char *c)
 {
-    int i;
-    for (i = 0; c[i]; i++)
-        ;
-    return i;
+	int i;
+
+	for (i = 0; c[i]; i++)
+		;
+	return (i);
 }
