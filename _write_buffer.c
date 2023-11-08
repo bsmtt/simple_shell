@@ -5,17 +5,7 @@
  * @c: charcter to concatenate
  * Return: void
  */
-void _write_buffer(char c)
+void _write_buffer(char *c)
 {
-	static char buffer[1024];
-	static int bufferCount;
-
-	if (bufferCount == 1024 || !c)
-	{
-		write(1, buffer, bufferCount);
-		bufferCount = 0;
-	}
-
-	buffer[bufferCount] = c;
-	bufferCount = bufferCount + 1;
+	return (write(STDOUT_FILENO, c, str_length(c)));
 }
