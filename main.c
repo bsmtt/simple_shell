@@ -43,4 +43,5 @@ void get_input(char *buffer, size_t bufsize)
 			exit(EXIT_FAILURE);
 		}
 	}
+	get_command_sections(buffer);
 }
