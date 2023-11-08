@@ -16,6 +16,6 @@
 
 int _write_buffer(char *c);
 void prompt_msg(void);
-
+void get_input(char *buffer, size_t bufsize);
 int str_length(char *c);
 #endif

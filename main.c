@@ -10,7 +10,7 @@ int main(int argc, char *argv[], char *env[])
 {
 	char buffer[BUFFER_SIZE];
 
-	while (true)
+	while (1)
 	{
 		_write_buffer("basma_shell$ ");
 		get_input(buffer, sizeof(buffer));
