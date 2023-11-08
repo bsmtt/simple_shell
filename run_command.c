@@ -12,7 +12,7 @@ void run_command(const char *buffer, char **argv, char *env[])
 	pid_t pid = fork();
 	int status;
 	char path[256];
-
+	(void) buffer;
 	if (pid == -1)
 	{
 		_write_buffer("fork");

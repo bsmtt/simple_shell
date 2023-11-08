@@ -43,5 +43,6 @@ void get_input(char *buffer, size_t bufsize)
 			exit(EXIT_FAILURE);
 		}
 	}
+	buffer[strcspn(buffer, "\n")] = '\0';
 	get_command_sections(buffer);
 }
