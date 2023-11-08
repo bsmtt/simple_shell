@@ -12,6 +12,7 @@ int main(int argc, char *argv[], char *env[])
 
 	(void) argc;
 	(void) argv;
+	(void) env;
 	while (1)
 	{
 		_write_buffer("basma_shell$ ");
