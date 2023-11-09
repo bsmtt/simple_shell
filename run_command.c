@@ -9,10 +9,16 @@
  */
 void run_command(const char *buffer, char **argv, char *env[])
 {
-	pid_t pid = fork();
+	pid_t pid;
 	int status;
 	char path[256];
-	(void) buffer;
+	
+	if (strcmp(buffer, "exit") == 0)
+	{
+		exit(EXIT_SUCCESS);
+	}
+
+	pid = fork();
 	if (pid == -1)
 	{
 		_write_buffer("fork");
