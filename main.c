@@ -19,7 +19,7 @@ int main(int argc, char *argv[], char *env[])
 		if (strcmp(buffer, "exit") == 0)
 		{
 			kill(getpid(), SIGINT);
-			exit(EXIT_SUCCESS);
+			exit(0);
 			break;
 		}
 
