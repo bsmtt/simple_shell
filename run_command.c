@@ -21,21 +21,18 @@ void run_command(const char *buffer, char **argv, char *env[])
 	while (dir != NULL)
 	{
 		snprintf(path, sizeof(path), "%s/%s", dir, buffer);
-		if (access(path, X_OK) == 0)
+		if (access(path, X_OK) != 0)
 		{
 			found = 1;
 			break;
 		}
 		dir = strtok(NULL, ":");
 	}
+
 	if (!found)
 	{
-		 printf("Command not found: %s\n", buffer);
-		 exit(0);
-	}
-	if (strcmp(buffer, "exit") == 0)
-	{
-		exit(EXIT_SUCCESS);
+		 printf("Command not found: %s\n", path);
+		 exit(EXIT_FAILURE);
 	}
 
 	pid = fork();
