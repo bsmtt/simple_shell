@@ -16,6 +16,13 @@ int main(int argc, char *argv[], char *env[])
 	{
 		_write_buffer("basma_shell$ ");
 		get_input(buffer, sizeof(buffer));
+		if (strcmp(buffer, "exit") == 0)
+		{
+			kill(getpid(), SIGINT);
+			exit(EXIT_SUCCESS);
+			break;
+		}
+
 		run_command(buffer, argv, env);
 	}
 	return (0);
@@ -44,5 +51,4 @@ void get_input(char *buffer, size_t bufsize)
 		}
 	}
 	buffer[strcspn(buffer, "\n")] = '\0';
-	get_command_sections(buffer);
 }

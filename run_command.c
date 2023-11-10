@@ -12,7 +12,27 @@ void run_command(const char *buffer, char **argv, char *env[])
 	pid_t pid;
 	int status;
 	char path[256];
-	
+	int found = 0;
+	char *dpath;
+	char *dir;
+
+	dpath = getenv("PATH");
+	dir = strtok(dpath, ":");
+	while (dir != NULL)
+	{
+		snprintf(path, sizeof(path), "%s/%s", dir, buffer);
+		if (access(path, X_OK) == 0)
+		{
+			found = 1;
+			break;
+		}
+		dir = strtok(NULL, ":");
+	}
+	if (!found)
+	{
+		 printf("Command not found: %s\n", buffer);
+		 exit(0);
+	}
 	if (strcmp(buffer, "exit") == 0)
 	{
 		exit(EXIT_SUCCESS);
@@ -38,6 +58,6 @@ void run_command(const char *buffer, char **argv, char *env[])
 	}
 	else
 	{
-		wait(&status);
+		waitpid(pid,&status, 0);
 	}
 }
