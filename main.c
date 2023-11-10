@@ -16,6 +16,11 @@ int main(int argc, char *argv[], char *env[])
 	{
 		_write_buffer("basma_shell$ ");
 		get_input(buffer, sizeof(buffer));
+
+		if (strlen(buffer) == 0)
+		{
+			continue;
+		}
 		if (strcmp(buffer, "exit") == 0)
 		{
 			kill(getpid(), SIGINT);
