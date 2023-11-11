@@ -18,12 +18,14 @@ int main(int argc, char *argv[], char *env[])
 		_write_buffer("basma_shell$ ");
 		get_input(buffer, sizeof(buffer));
 		data->command = buffer;
+
 		if (strlen(data->command) == 0)
 		{
 			continue;
 		}
 		if (strcmp(data->command, "exit") == 0)
 		{
+			_free(data);
 			kill(getpid(), SIGINT);
 			exit(0);
 			break;
@@ -57,4 +59,18 @@ void get_input(char *buffer, size_t bufsize)
 		}
 	}
 	buffer[strcspn(buffer, "\n")] = '\0';
+}
+
+/**
+ * _free - free memory
+ * @data: data strucrt
+ * Return: 0 on succes.
+ */
+void _free(buffer_data *data)
+{
+	if (data->command != NULL)
+	{
+		free(data->command);
+		data->command = NULL;
+	}
 }
