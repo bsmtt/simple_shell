@@ -27,5 +27,6 @@ int str_length(char *c);
 void run_command(buffer_data *data, char **argv, char *env[]);
 char **get_command_sections(char *buffer);
 void _free(buffer_data *data);
+void print_env(char *env[]);
 
 #endif

@@ -7,7 +7,7 @@
  * @buffer : buffer
  * Return: void on succes.
  */
-void run_command(const char *buffer, char **argv, char *env[])
+void run_command(buffer_data *data, char **argv, char *env[])
 {
 	pid_t pid;
 	int status;
@@ -20,7 +20,7 @@ void run_command(const char *buffer, char **argv, char *env[])
 	dir = strtok(dpath, ":");
 	while (dir != NULL)
 	{
-		snprintf(path, sizeof(path), "%s/%s", dir, buffer);
+		snprintf(path, sizeof(path), "%s/%s", dir, data->command);
 		if (access(path, X_OK) != 0)
 		{
 			found = 1;
@@ -43,7 +43,7 @@ void run_command(const char *buffer, char **argv, char *env[])
 	}
 	else if (pid == 0)
 	{
-		snprintf(path, sizeof(path), "/bin/%s", buffer);
+		snprintf(path, sizeof(path), "/bin/%s", data->command);
 		execve(path, argv, env);
 		if (strcmp(path, "/bin/") != 0)
     		{

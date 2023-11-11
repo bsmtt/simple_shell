@@ -25,11 +25,15 @@ int main(int argc, char *argv[], char *env[])
 		}
 		if (strcmp(data->command, "exit") == 0)
 		{
-			_free(data);
 			kill(getpid(), SIGINT);
 			exit(0);
 			break;
 		}
+
+		 if (strcmp(data->command, "env") == 0 && argc == 1)
+		 {
+			 print_env(env);
+		 }
 
 		run_command(data, argv, env);
 	}
