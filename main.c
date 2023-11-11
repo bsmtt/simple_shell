@@ -9,26 +9,27 @@
 int main(int argc, char *argv[], char *env[])
 {
 	char buffer[BUFFER_SIZE];
-
+	buffer_data b_data = {NULL}, 
+	*data = &b_data;
 	(void)argc;
 
 	while (1)
 	{
 		_write_buffer("basma_shell$ ");
 		get_input(buffer, sizeof(buffer));
-
-		if (strlen(buffer) == 0)
+		data->command = buffer;
+		if (strlen(data->command) == 0)
 		{
 			continue;
 		}
-		if (strcmp(buffer, "exit") == 0)
+		if (strcmp(data->command, "exit") == 0)
 		{
 			kill(getpid(), SIGINT);
 			exit(0);
 			break;
 		}
 
-		run_command(buffer, argv, env);
+		run_command(data, argv, env);
 	}
 	return (0);
 }
