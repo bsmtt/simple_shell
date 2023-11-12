@@ -9,8 +9,9 @@
 int main(int argc, char *argv[], char *env[])
 {
 	program_data data;
+	(void) env;
 
-	set_program_data(&data, argc, argv, env);
+	set_program_data(&data, argc, argv);
 
 	return (0);
 }
