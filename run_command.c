@@ -7,7 +7,7 @@
  * @buffer : buffer
  * Return: void on succes.
  */
-void run_command(buffer_data *data, char **argv, char *env[])
+void run_command(program_data *data, char **argv, char *env[])
 {
 	pid_t pid;
 	int status;
@@ -38,7 +38,7 @@ void run_command(buffer_data *data, char **argv, char *env[])
 	pid = fork();
 	if (pid == -1)
 	{
-		_write_buffer("fork");
+		_write_txt("fork");
 		exit(EXIT_FAILURE);
 	}
 	else if (pid == 0)

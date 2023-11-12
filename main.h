@@ -14,22 +14,16 @@
 
 #define BUFFER_SIZE 1024
 
-typedef struct buffer
+typedef struct program_data
 {
-	char *buffer;
-	char *command;
-	char **arguments;
-	int f_descriptor;
-} buffer_data;
+	char **command_tokens; // tokenize command
+	char **alias_list;
+	int descriptor;
+} program_data;
 
-int _write_buffer(char *c);
-void prompt_msg(void);
-void get_input(char *buffer, size_t bufsize);
+void set_program_data(program_data *data, int argc, char *argv[]);
+int _write_txt(char *c);
+int _write_error(char *c);
 int str_length(char *c);
-void run_command(buffer_data *data, char **argv, char *env[]);
-char **get_command_sections(char *buffer);
-void _free(buffer_data *data);
-void print_env(char *env[]);
-void parse_command(buffer_data *data);
 
 #endif

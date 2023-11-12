@@ -8,73 +8,46 @@
  */
 int main(int argc, char *argv[], char *env[])
 {
-	char buffer[BUFFER_SIZE];
-	buffer_data b_data = {NULL}, 
-	*data = &b_data;
-	(void)argc;
+	program_data data;
 
-	while (1)
-	{
-		_write_buffer("basma_shell$ ");
-		get_input(buffer, sizeof(buffer));
-		data->command = buffer;
-		if (strlen(data->command) == 0)
-		{
-			continue;
-		}
+	set_program_data(&data, argc, argv, env);
 
-		if (strcmp(data->command, "exit") == 0)
-		{
-			kill(getpid(), SIGINT);
-			exit(0);
-			break;
-		}
-
-		 if (strcmp(data->command, "env") == 0 && argc == 1)
-		 {
-			 print_env(env);
-		 }
-
-		run_command(data, argv, env);
-	}
 	return (0);
 }
 /**
- * get_input - get input line from user
- * @buffer: command line
- * @bufsize: size of command line
- * Return: 0 on succes.
+ * set_program_data - set program data
+ * @data: struct to save program data
+ * @argc: number of arguments
+ * @argv: values of arguments
+ * @env: environment variables
  */
-void get_input(char *buffer, size_t bufsize)
+void set_program_data(program_data *data, int argc, char *argv[])
 {
-	int characters = getline(&buffer, &bufsize, stdin);
+	int i;
+	data->command_tokens = NULL; /* tokenize command */
 
-	if (!characters)
+	data->alias_list = malloc(sizeof(char *) * 30);
+	if (!data->alias_list)
 	{
-		if (feof(stdin))
-		{
-			_write_buffer("\n");
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			_write_buffer("error");
-			exit(EXIT_FAILURE);
-		}
+		_write_error(argv[0]);
+		exit(127);
 	}
-	buffer[strcspn(buffer, "\n")] = '\0';
-}
+	for (i = 0; i < 20; i++)
+		data->alias_list[i] = NULL;
 
-/**
- * _free - free memory
- * @data: data strucrt
- * Return: 0 on succes.
- */
-void _free(buffer_data *data)
-{
-	if (data->command != NULL)
+	/* check if interactive mood*/
+	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) && argc == 1)
+		data->descriptor = STDIN_FILENO; /*interactive mood*/
+	else
 	{
-		free(data->command);
-		data->command = NULL;
+		data->descriptor = open(argv[1], O_RDONLY);
+		if (data->descriptor == -1) /* error opening file */
+		{
+			_write_error(argv[0]); /* wrong command is entered*/
+			_write_error(": ");
+			_write_error(argv[1]);
+			_write_error(": Command not found\n");
+			exit(127);
+		}
 	}
 }
