@@ -8,8 +8,15 @@
  */
 int main(int argc, char *argv[], char *env[])
 {
-	program_data data;
-	(void)env;
+	program_data data, *data_p = &data;
+	(void) env;
+
+	while (1)
+	{
+		_getline(data_p);
+		printf("%s", data_p->input);
+	}
+
 
 	set_program_data(&data, argc, argv);
 	prompt_loop(&data);
