@@ -33,5 +33,6 @@ void remove_program_data(program_data *data);
 void free_pointer_array(char **arr);
 void tokenize_command(program_data *data);
 char *str_clone(char *c);
+void prompt_loop(program_data *data);
 
 #endif

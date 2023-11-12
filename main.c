@@ -21,16 +21,16 @@ int main(int argc, char *argv[], char *env[])
  */
 void prompt_loop(program_data *data)
 {
-	int command_length;
+	int command_length = 0;
 
 	while (1)
 	{
-		_print_txt("Basma_shell$");
+		_write_txt("Basma_shell$");
 		/*command_length = _getline(data);*/
 
 		if (command_length == EOF)
 		{
-			_print_txt("\n");
+			_write_txt("\n");
 			exit(EXIT_SUCCESS);
 		}
 		if (command_length > 0)
