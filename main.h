@@ -16,7 +16,9 @@
 
 typedef struct buffer
 {
+	char *buffer;
 	char *command;
+	char **arguments;
 	int f_descriptor;
 } buffer_data;
 
@@ -28,5 +30,6 @@ void run_command(buffer_data *data, char **argv, char *env[]);
 char **get_command_sections(char *buffer);
 void _free(buffer_data *data);
 void print_env(char *env[]);
+void parse_command(buffer_data *data);
 
 #endif

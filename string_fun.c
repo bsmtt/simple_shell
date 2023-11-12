@@ -36,3 +36,43 @@ char **get_command_sections(char *buffer)
 	}
 	return (sections);
 }
+
+/**
+ * parse_command - seprate string
+ * @data: a pointer to the program's data
+ * Return: an array of the different parts of the string
+ */
+void parse_command(buffer_data *data)
+{
+	char *del = " ";
+	int i = 0, c = 0;
+	char* argument;
+	
+	printf("y");
+	while(data->buffer[i])
+	{
+		if (data->buffer[i] == del[0])
+			c++;
+		i++;
+	}
+	 printf("y");
+	data->arguments = malloc((c + 2) * sizeof(char *));
+	if (!data->arguments)
+	{
+		printf("y");
+		exit(127);
+	}
+	
+	argument = strtok(data->buffer, del);
+	data->arguments[0] = strdup(argument);
+	data->command = strdup(argument);
+
+	i = 1;
+	while (data->arguments[i])
+	{
+		argument = strtok(NULL, del);
+		data->arguments[i] = strdup(argument);
+		i++;
+	}
+
+}
