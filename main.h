@@ -12,6 +12,8 @@
 #include <stddef.h>
 #include <errno.h>
 
+#define BUFFER_SIZE 1024
+
 typedef struct program_data
 {
 	char **command_tokens;
@@ -25,6 +27,7 @@ int _write_error(char *c);
 int str_length(char *c);
 void remove_program_data(program_data *data);
 void free_pointer_array(char **arr);
-
+int _ops(char *commands[], int j, char operators[]);
+int _getline(program_data *data);
 
 #endif
