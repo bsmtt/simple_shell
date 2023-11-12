@@ -12,6 +12,12 @@
 #include <stddef.h>
 #include <errno.h>
 
+/**
+ * program_data - loop to show prompt
+ * @command_tokens: command tokens
+ * @input: input line
+ * @descriptor: file descriptor
+ */
 typedef struct program_data
 {
 	char **command_tokens;
@@ -25,6 +31,7 @@ int _write_error(char *c);
 int str_length(char *c);
 void remove_program_data(program_data *data);
 void free_pointer_array(char **arr);
-
+void tokenize_command(program_data *data);
+char *str_clone(char *c);
 
 #endif
