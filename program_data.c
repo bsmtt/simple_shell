@@ -4,12 +4,9 @@
  * @data: struct to save program data
  * @argc: number of arguments
  * @argv: values of arguments
- * @env: environment variables
  */
 void set_program_data(program_data *data, int argc, char *argv[])
 {
-	int i;
-
 	data->command_tokens = NULL; /* tokenize command */
 
 	/* check if interactive mood*/
@@ -24,7 +21,7 @@ void set_program_data(program_data *data, int argc, char *argv[])
 			_write_error(": ");
 			_write_error(argv[1]);
 			_write_error(": Command not found\n");
-			exit(127);
+			exit(errno);
 		}
 	}
 }
@@ -41,8 +38,7 @@ void remove_program_data(program_data *data)
 }
 /**
  * free_pointer_array - free all string pointer in array
- * @a: array of strings
- * Return: nothing
+ * @arr: array of strings
  */
 void free_pointer_array(char **arr)
 {
