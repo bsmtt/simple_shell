@@ -11,14 +11,6 @@ void set_program_data(program_data *data, int argc, char *argv[])
 	int i;
 
 	data->command_tokens = NULL; /* tokenize command */
-	data->alias_list = malloc(sizeof(char *) * 30);
-	if (!data->alias_list)
-	{
-		_write_error(argv[0]);
-		exit(127);
-	}
-	for (i = 0; i < 20; i++)
-		data->alias_list[i] = NULL;
 
 	/* check if interactive mood*/
 	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) && argc == 1)
