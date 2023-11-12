@@ -38,6 +38,5 @@ int _getline(program_data *data);
 void tokenize_command(program_data *data);
 char *str_clone(char *c);
 void prompt_loop(program_data *data);
- 
 
 #endif

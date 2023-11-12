@@ -18,8 +18,8 @@ int main(int argc, char *argv[], char *env[])
 	}
 
 
-	set_program_data(&data, argc, argv);
-	prompt_loop(&data);
+	/* set_program_data(&data, argc, argv);*/
+	/*prompt_loop(&data);*/
 	return (0);
 }
 /**
