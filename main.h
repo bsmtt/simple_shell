@@ -15,6 +15,7 @@
 typedef struct program_data
 {
 	char **command_tokens;
+	char *input;
 	int descriptor;
 } program_data;
 
