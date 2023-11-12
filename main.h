@@ -22,5 +22,8 @@ void set_program_data(program_data *data, int argc, char *argv[]);
 int _write_txt(char *c);
 int _write_error(char *c);
 int str_length(char *c);
+void remove_program_data(program_data *data);
+void free_pointer_array(char **arr);
+
 
 #endif
