@@ -36,3 +36,30 @@ void set_program_data(program_data *data, int argc, char *argv[])
 		}
 	}
 }
+/**
+ * remove_program_data - remove saved program data
+ * @data: struct of program data
+ */
+void remove_program_data(program_data *data)
+{
+	if (data->descriptor != STDIN_FILENO) /* non interactive mood */
+		close(data->descriptor);
+
+	free_pointer_array(data->command_tokens);
+}
+/**
+ * free_pointer_array - free all string pointer in array
+ * @a: array of strings
+ * Return: nothing
+ */
+void free_pointer_array(char **arr)
+{
+	int i = 0;
+
+	if (arr)
+	{
+		while (arr[i])
+			free(arr[i]), i++;
+		free(arr);
+	}
+}
