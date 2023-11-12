@@ -12,8 +12,6 @@
 #include <stddef.h>
 #include <errno.h>
 
-#define BUFFER_SIZE 1024
-
 typedef struct program_data
 {
 	char **command_tokens;

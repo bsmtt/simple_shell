@@ -15,6 +15,7 @@ int main(int argc, char *argv[], char *env[])
 
 	return (0);
 }
+
 /**
  * set_program_data - set program data
  * @data: struct to save program data
@@ -25,8 +26,8 @@ int main(int argc, char *argv[], char *env[])
 void set_program_data(program_data *data, int argc, char *argv[])
 {
 	int i;
-	data->command_tokens = NULL; /* tokenize command */
 
+	data->command_tokens = NULL; /* tokenize command */
 	data->alias_list = malloc(sizeof(char *) * 30);
 	if (!data->alias_list)
 	{
