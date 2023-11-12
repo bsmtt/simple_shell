@@ -1,17 +1,17 @@
 #include "main.h"
 
 /**
-* _getline - read one line from the prompt.
-* @data: struct for the program's data
-*
-* Return: reading counting bytes.
-*/
+ * _getline - read one line from the prompt.
+ * @data: struct for the program's data
+ *
+ * Return: reading counting bytes.
+ */
 int _getline(program_data *data)
 {
 	char buffer[BUFFER_SIZE];
 	static char *commands[10] = {NULL};
 	static char operators[10] = {'\0'};
-	ssize_t bytes; 
+	ssize_t bytes;
 	int i = 0;
 	int j = 0;
 	int c = 0;
@@ -27,14 +27,13 @@ int _getline(program_data *data)
 		bytes = read(data->descriptor, &buffer, BUFFER_SIZE - 1);
 		if (bytes == 0)
 			return (-1);
-	
-		while(commands[j])
+
+		while (commands[j])
 		{
 			commands[j] = strdup(strtok(j ? NULL : buffer, "\n;"));
 			j = _ops(commands, i, operators);
 			j++;
 		}
-	
 	}
 	data->input = commands[0];
 	for (i = 0, c = 1; commands[i]; i++, c++)
@@ -42,7 +41,7 @@ int _getline(program_data *data)
 		commands[i] = commands[c];
 		operators[i] = operators[c];
 	}
-	return(strlen(data->input));
+	return (strlen(data->input));
 }
 int _ops(char *commands[], int j, char operators[])
 {
@@ -50,8 +49,7 @@ int _ops(char *commands[], int j, char operators[])
 	int i;
 	while (commands[j] != NULL && commands[j][i])
 	{
-		if ((commands[j][i] == '&' && commands[j][i + 1] == '&') 
-			|| (commands[j][i] == '|' && commands[j][i + 1] == '|'))
+		if ((commands[j][i] == '&' && commands[j][i + 1] == '&') || (commands[j][i] == '|' && commands[j][i + 1] == '|'))
 		{
 			temp = commands[j];
 			operators[j] = commands[j][i];
