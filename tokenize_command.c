@@ -10,6 +10,7 @@ void tokenize_command(program_data *data)
 
     if (str_length(data->input))
         data->input[strcspn(data->input, "\n")] = '\0';
+        
     if (!data->input) return;
 
     for (i = 0; data->input[i]; i++)

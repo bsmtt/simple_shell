@@ -11,8 +11,6 @@ int main(int argc, char *argv[], char *env[])
 	program_data data;
 	(void)env;
 
-	signal(SIGINT, prompt_msg);
-
 	set_program_data(&data, argc, argv);
 	prompt_loop(&data);
 	return (0);
@@ -54,6 +52,7 @@ void prompt_loop(program_data *data)
 			tokenize_command(data);
 			continue;
 		}
+		printf("bad>>>");
 		if (feof(stdin))
 		{
 			perror("\n");
