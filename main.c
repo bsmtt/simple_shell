@@ -47,10 +47,6 @@ void prompt_loop(program_data *data)
 		/*getline(&data->input, &size, stdin);*/
 		_getline(data);
 		
-		if (strlen(data->input))
-		{
-			continue;
-		}
 		if (str_length(data->input) > 0)
 		{
 			tokenize_command(data);

@@ -27,7 +27,9 @@ int _getline(program_data *data)
 		bytes = read(data->descriptor, &buffer, BUFFER_SIZE - 1);
 		if (bytes == 0)
 			return (-1);
-
+		
+		if (strlen(buffer) == 1)
+			return (0);
 		commands[j] = strdup(strtok(buffer, "\n;"));
 		while (commands[++j])
 		{
@@ -41,8 +43,7 @@ int _getline(program_data *data)
 		commands[i] = commands[c];
 		operators[i] = operators[c];
 	}
-	printf("%s", data->input);
-	exit(0);
+	return (strlen(data->input));
 }
 
 int _ops(char *commands[], int j, char operators[])
