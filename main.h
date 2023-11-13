@@ -37,7 +37,8 @@ int _ops(char *commands[], int j, char operators[]);
 int _getline(program_data *data);
 void tokenize_command(program_data *data);
 char *str_clone(char *c);
-void prompt_loop(program_data *data);
 void prompt_msg(int opr);
+void run_command(program_data *data, char **argv, char *env[]);
+void prompt_loop(program_data *data, char *argv[], char *env[]);
 
 #endif

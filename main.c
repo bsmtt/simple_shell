@@ -12,7 +12,7 @@ int main(int argc, char *argv[], char *env[])
 	(void)env;
 
 	set_program_data(&data, argc, argv);
-	prompt_loop(&data);
+	prompt_loop(&data, argv, env);
 	return (0);
 }
 /**
@@ -28,7 +28,7 @@ void prompt_msg(int opr)
  * prompt_loop - loop to show prompt
  * @data: program data
  */
-void prompt_loop(program_data *data)
+void prompt_loop(program_data *data, char *argv[], char *env[])
 {
 	size_t size = 40;
 
@@ -63,5 +63,6 @@ void prompt_loop(program_data *data)
 			perror("fgets");
 			exit(EXIT_FAILURE);
 		}
+		run_command(data, argv, env);
 	}
 }
