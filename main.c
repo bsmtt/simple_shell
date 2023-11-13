@@ -31,6 +31,7 @@ void prompt_msg(int opr)
 void prompt_loop(program_data *data, char *argv[], char *env[])
 {
 	size_t size = 40;
+	int i = 0;
 
 	data->input = malloc(size * sizeof(char));
 	if (!data->input)
@@ -50,6 +51,12 @@ void prompt_loop(program_data *data, char *argv[], char *env[])
 		if (str_length(data->input) > 0)
 		{
 			tokenize_command(data);
+			while (data->command_tokens[i])
+			{
+				printf("%i  >>>  %s\n", i, data->command_tokens[i]);
+				i++;
+			}
+			
 			continue;
 		}
 		printf("bad>>>");

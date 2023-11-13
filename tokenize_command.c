@@ -10,8 +10,9 @@ void tokenize_command(program_data *data)
 
     if (str_length(data->input))
         data->input[strcspn(data->input, "\n")] = '\0';
-        
-    if (!data->input) return;
+
+    if (!data->input)
+        return;
 
     for (i = 0; data->input[i]; i++)
     {
@@ -34,5 +35,5 @@ void tokenize_command(program_data *data)
         i++;
         data->command_tokens[i] = str_clone(strtok(NULL, del));
     }
-    data->command_tokens[i] = NULL;
+    data->command_tokens[command_count] = NULL;
 }
