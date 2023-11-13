@@ -22,7 +22,6 @@ int main(int argc, char *argv[], char *env[])
 void prompt_msg(int opr)
 {
 	(void)opr;
-	_write_txt("\n");
 	_write_txt("$ ");
 }
 /**
@@ -45,7 +44,8 @@ void prompt_loop(program_data *data)
 		prompt_msg(0);
 		/*command_length = _getline(data);*/
 
-		getline(&data->input, &size, stdin);
+		/*getline(&data->input, &size, stdin);*/
+		_getline(data);
 		
 		if (strlen(data->input))
 		{

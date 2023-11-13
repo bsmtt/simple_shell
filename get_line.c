@@ -15,7 +15,7 @@ int _getline(program_data *data)
 	int i = 0;
 	int j = 0;
 	int c = 0;
-
+	
 	if (!commands[0] || operators[0] == '&' || operators[0] == '|')
 	{
 		while (commands[i])
@@ -28,11 +28,11 @@ int _getline(program_data *data)
 		if (bytes == 0)
 			return (-1);
 
-		while (commands[j])
+		commands[j] = strdup(strtok(buffer, "\n;"));
+		while (commands[++j])
 		{
-			commands[j] = strdup(strtok(j ? NULL : buffer, "\n;"));
+			commands[j] = strdup(strtok(NULL, "\n;"));
 			j = _ops(commands, i, operators);
-			j++;
 		}
 	}
 	data->input = commands[0];
@@ -41,8 +41,10 @@ int _getline(program_data *data)
 		commands[i] = commands[c];
 		operators[i] = operators[c];
 	}
-	return (strlen(data->input));
+	printf("%s", data->input);
+	exit(0);
 }
+
 int _ops(char *commands[], int j, char operators[])
 {
 	char *temp;
