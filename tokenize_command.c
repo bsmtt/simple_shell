@@ -12,7 +12,7 @@ void tokenize_command(program_data *data)
 		data->input[strcspn(data->input, "\n")] = '\0';
 
 	for (i = 0; data->input[i]; i++)
-		if (data->input[i] == del[0] && data->input[i + 1] && data->input[i + 1] != del[0])
+		if (data->input[i] == del[0] && data->input[i + 1] != del[0])
 			command_count++;
 
 	data->command_tokens = malloc((command_count + 1) * sizeof(char *));
