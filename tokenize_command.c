@@ -8,9 +8,6 @@ void tokenize_command(program_data *data)
     int i, command_count = 1;
     char *del = " ";
 
-    if (str_length(data->input))
-        data->input[strcspn(data->input, "\n")] = '\0';
-
     for (i = 0; data->input[i]; i++)
         if (data->input[i] == del[0] && data->input[i + 1] != del[0])
             command_count++;
@@ -23,15 +20,12 @@ void tokenize_command(program_data *data)
     }
 
     i = 0;
-    while (data->command_tokens[i++])
+    data->command_tokens[i] = str_clone(strtok(data->input, del));
+ 
+    while (i < command_count - 1)
     {
+        i++;
         data->command_tokens[i] = str_clone(strtok(NULL, del));
-        printf("%i >> %s \n", i, data->command_tokens[i]);
     }
-
-    i = 0;
-    while (data->command_tokens[i++])
-    {
-        printf("%i >> %s \n", i, data->command_tokens[i]);
-    }
+    data->command_tokens[i] = NULL;
 }

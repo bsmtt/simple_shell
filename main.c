@@ -34,7 +34,6 @@ void prompt_msg(int opr)
 void prompt_loop(program_data *data)
 {
 	size_t size = 40;
-	size_t command_length;
 
 	data->input = malloc(size * sizeof(char));
 	if (!data->input)
@@ -48,15 +47,19 @@ void prompt_loop(program_data *data)
 		prompt_msg(0);
 		/*command_length = _getline(data);*/
 
-		command_length = getline(&data->input, &size, stdin);
-		if (command_length && command_length > 0)
+		getline(&data->input, &size, stdin);
+
+		if (str_length(data->input))
+			data->input[strcspn(data->input, "\n")] = '\0';
+
+		if (str_length(data->input) > 0)
 		{
 			tokenize_command(data);
 			continue;
 		}
 		if (feof(stdin))
 		{
-			_write_txt("\n");
+			perror("\n");
 			exit(EXIT_SUCCESS);
 		}
 		else
