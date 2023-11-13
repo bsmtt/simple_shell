@@ -12,7 +12,7 @@ int main(int argc, char *argv[], char *env[])
 	(void)env;
 
 	set_program_data(&data, argc, argv);
-	prompt_loop(&data, argv, env);
+	prompt_loop(&data, env);
 	return (0);
 }
 /**
@@ -28,10 +28,11 @@ void prompt_msg(int opr)
  * prompt_loop - loop to show prompt
  * @data: program data
  */
-void prompt_loop(program_data *data, char *argv[], char *env[])
+void prompt_loop(program_data *data, char *env[])
 {
 	size_t size = 40;
 	int i = 0;
+	int len;
 
 	data->input = malloc(size * sizeof(char));
 	if (!data->input)
@@ -39,15 +40,13 @@ void prompt_loop(program_data *data, char *argv[], char *env[])
 		perror("error when allocate input line");
 		exit(1);
 	}
-
 	while (1)
 	{
 		prompt_msg(0);
 		/*command_length = _getline(data);*/
 
 		/*getline(&data->input, &size, stdin);*/
-		_getline(data);
-		
+		len = _getline(data);
 		if (str_length(data->input) > 0)
 		{
 			tokenize_command(data);
@@ -57,19 +56,20 @@ void prompt_loop(program_data *data, char *argv[], char *env[])
 				i++;
 			}
 			
-			continue;
 		}
-		printf("bad>>>");
-		if (feof(stdin))
+		if (!len)
 		{
-			perror("\n");
-			exit(EXIT_SUCCESS);
+			if (feof(stdin))
+			{
+				perror("\n");
+				exit(EXIT_SUCCESS);
+			}
+			else
+			{
+				perror("fgets");
+				exit(EXIT_FAILURE);
+			}
 		}
-		else
-		{
-			perror("fgets");
-			exit(EXIT_FAILURE);
-		}
-		run_command(data, argv, env);
+		run_command(data, env);
 	}
 }

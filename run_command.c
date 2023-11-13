@@ -7,7 +7,7 @@
  * @buffer : buffer
  * Return: void on succes.
  */
-void run_command(program_data *data, char **argv, char *env[])
+void run_command(program_data *data, char *env[])
 {
 	pid_t pid;
 	int status;
@@ -16,23 +16,23 @@ void run_command(program_data *data, char **argv, char *env[])
 	char *dpath;
 	char *dir;
 
-	(void) data;
 	dpath = getenv("PATH");
 	dir = strtok(dpath, ":");
 	while (dir != NULL)
 	{
-		snprintf(path, sizeof(path), "%s/%s", dir, argv[0]);
-		if (access(path, X_OK) != 0)
+		snprintf(path, sizeof(path), "%s/%s", dir, data->command_tokens[0]);
+		if (access(path, F_OK) == 0)
 		{
 			found = 1;
 			break;
 		}
 		dir = strtok(NULL, ":");
 	}
+        
 
 	if (!found)
 	{
-		 printf("Command not found: %s\n", path);
+		 printf("Command not found: %s\n", data->command_tokens[0]);
 		 exit(EXIT_FAILURE);
 	}
 
@@ -44,8 +44,7 @@ void run_command(program_data *data, char **argv, char *env[])
 	}
 	else if (pid == 0)
 	{
-		snprintf(path, sizeof(path), "/bin/%s", argv[0]);
-		execve(path, argv, env);
+		execve(path,  data->command_tokens, env);
 	}
 	else
 	{
