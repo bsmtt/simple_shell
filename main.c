@@ -52,12 +52,11 @@ void prompt_loop(program_data *data)
 		if (command_length && command_length > 0)
 		{
 			tokenize_command(data);
-			printf("%s", data->command_tokens[0]);
 			continue;
 		}
 		if (feof(stdin))
 		{
-			printf("\n");
+			_write_txt("\n");
 			exit(EXIT_SUCCESS);
 		}
 		else
