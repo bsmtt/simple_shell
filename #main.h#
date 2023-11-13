@@ -1,6 +1,4 @@
-#ifndef MAIN_H
-#define MAIN_H
-#include <unistd.h>
+td.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -38,6 +36,6 @@ int _getline(program_data *data);
 void tokenize_command(program_data *data);
 char *str_clone(char *c);
 void prompt_loop(program_data *data);
-void prompt_msg(int opr);
+void prompt_msg(int opr UNUSED);
 
 #endif

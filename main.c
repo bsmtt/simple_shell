@@ -8,19 +8,24 @@
  */
 int main(int argc, char *argv[], char *env[])
 {
-	program_data data, *data_p = &data;
-	(void) env;
+	program_data data;
+	(void)env;
 
-	while (1)
-	{
-		_getline(data_p);
-		printf("%s", data_p->input);
-	}
+	signal(SIGINT, prompt_msg);
 
-
-	/* set_program_data(&data, argc, argv);*/
-	/*prompt_loop(&data);*/
+	set_program_data(&data, argc, argv);
+	prompt_loop(&data);
 	return (0);
+}
+/**
+ * prmpt_msg - write prompt message
+ * @opr: not used input
+ */
+void prompt_msg(int opr)
+{
+	(void)opr;
+	_write_txt("\n");
+	_write_txt("$ ");
 }
 /**
  * prompt_loop - loop to show prompt
@@ -28,22 +33,37 @@ int main(int argc, char *argv[], char *env[])
  */
 void prompt_loop(program_data *data)
 {
-	int command_length = 0;
+	size_t size = 40;
+	size_t command_length;
+
+	data->input = malloc(size * sizeof(char));
+	if (!data->input)
+	{
+		perror("error when allocate input line");
+		exit(1);
+	}
 
 	while (1)
 	{
-		_write_txt("Basma_shell$");
+		prompt_msg(0);
 		/*command_length = _getline(data);*/
 
-		if (command_length == EOF)
-		{
-			_write_txt("\n");
-			exit(EXIT_SUCCESS);
-		}
-		if (command_length > 0)
+		command_length = getline(&data->input, &size, stdin);
+		if (command_length && command_length > 0)
 		{
 			tokenize_command(data);
-			/* handle command tokens */
+			printf("%s", data->command_tokens[0]);
+			continue;
+		}
+		if (feof(stdin))
+		{
+			printf("\n");
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			perror("fgets");
+			exit(EXIT_FAILURE);
 		}
 	}
 }
