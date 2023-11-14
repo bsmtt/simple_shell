@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * run_comand - run command
+ * run_command - run command
  * @env: number of arguments
  * @argv: values of arguments
  * @buffer : buffer
@@ -18,7 +18,11 @@ void run_command(program_data *data, char *env[])
 
 	dpath = str_clone(getenv("PATH"));
 	dir = strtok(dpath, ":");
-
+	
+	if (strcmp(data->command_tokens[0], "exit") == 0)
+	{
+		exit(EXIT_FAILURE);
+        }
 	while (dir != NULL)
 	{
 		snprintf(path, sizeof(path), "%s/%s", dir, data->command_tokens[0]);
