@@ -31,7 +31,6 @@ void prompt_msg(int opr)
 void prompt_loop(program_data *data, char *env[])
 {
 	size_t size = 40;
-	int i = 0;
 	int len;
 
 	data->input = malloc(size * sizeof(char));
