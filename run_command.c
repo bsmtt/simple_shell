@@ -16,8 +16,9 @@ void run_command(program_data *data, char *env[])
 	char *dpath;
 	char *dir;
 
-	dpath = getenv("PATH");
+	dpath = str_clone(getenv("PATH"));
 	dir = strtok(dpath, ":");
+
 	while (dir != NULL)
 	{
 		snprintf(path, sizeof(path), "%s/%s", dir, data->command_tokens[0]);
@@ -27,13 +28,12 @@ void run_command(program_data *data, char *env[])
 			break;
 		}
 		dir = strtok(NULL, ":");
-	}
-        
+	} 
 
 	if (!found)
 	{
-		 printf("Command not found: %s\n", data->command_tokens[0]);
-		 exit(EXIT_FAILURE);
+		_write_error("Command not found: %s\n", data->command_tokens[0]);
+		exit(EXIT_FAILURE);
 	}
 
 	pid = fork();
@@ -44,10 +44,10 @@ void run_command(program_data *data, char *env[])
 	}
 	else if (pid == 0)
 	{
-		execve(path,  data->command_tokens, env);
+		execve(path, data->command_tokens, env);
 	}
 	else
 	{
-		waitpid(pid,&status, 0);
+		waitpid(pid, &status, 0);
 	}
 }

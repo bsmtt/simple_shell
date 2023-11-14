@@ -46,12 +46,12 @@ void prompt_loop(program_data *data, char *env[])
 
 		/*getline(&data->input, &size, stdin);*/
 		len = _getline(data);
-		if (str_length(data->input) > 0)
+		if (len)
 		{
 			tokenize_command(data);
 			run_command(data, env);
 		}
-		if (!len)
+		else
 		{
 			if (feof(stdin))
 			{
