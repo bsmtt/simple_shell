@@ -32,6 +32,13 @@ void run_command(program_data *data, char *env[])
 
 	if (!found)
 	{
+		snprintf(path, sizeof(path), "%s", data->command_tokens[0]);
+                if (access(path, F_OK) == 0)
+                        found = 1;
+	}
+
+	if (!found)
+	{
 		printf("Command not found: %s\n", data->command_tokens[0]);
 		return;
 	}
