@@ -32,8 +32,8 @@ void run_command(program_data *data, char *env[])
 
 	if (!found)
 	{
-		_write_error("Command not found: %s\n", data->command_tokens[0]);
-		exit(EXIT_FAILURE);
+		printf("Command not found: %s\n", data->command_tokens[0]);
+		return;
 	}
 
 	pid = fork();
