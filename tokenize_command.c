@@ -5,18 +5,25 @@
  */
 void tokenize_command(program_data *data)
 {
-    int i, command_count = 1;
+    int i = 1, command_count = 1, length = str_length(data->input);
     char *del = " ";
 
-    if (str_length(data->input))
+    if (length)
         data->input[strcspn(data->input, "\n")] = '\0';
+
+    while (data->input[length - i] == ' ')
+    {
+        data->input[length - i] = '\0';
+        printf("%s \n", data->input);
+        i++;
+    }
 
     if (!data->input)
         return;
 
     for (i = 0; data->input[i]; i++)
     {
-        if (data->input[i] == del[0] && data->input[i + 1] != del[0])
+        if (data->input[i] == del[0])
             command_count++;
     }
 
