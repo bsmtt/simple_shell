@@ -50,12 +50,7 @@ void prompt_loop(program_data *data, char *env[])
 		if (str_length(data->input) > 0)
 		{
 			tokenize_command(data);
-			while (data->command_tokens[i])
-			{
-				printf("%i  >>>  %s\n", i, data->command_tokens[i]);
-				i++;
-			}
-			
+			run_command(data, env);
 		}
 		if (!len)
 		{
@@ -70,6 +65,5 @@ void prompt_loop(program_data *data, char *env[])
 				exit(EXIT_FAILURE);
 			}
 		}
-		run_command(data, env);
 	}
 }
