@@ -44,7 +44,7 @@ void prompt_loop(program_data *data, char *env[])
 		prompt_msg(0);
 		/*getline(&data->input, &size, stdin);*/
 		len = _getline(data);
-		if (len == 1)
+		if (len == 1 || len == 0)
                         continue;
 
 		if (len)
