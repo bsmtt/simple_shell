@@ -42,10 +42,11 @@ void prompt_loop(program_data *data, char *env[])
 	while (1)
 	{
 		prompt_msg(0);
-		/*command_length = _getline(data);*/
-
 		/*getline(&data->input, &size, stdin);*/
 		len = _getline(data);
+		if (len == 1)
+                        continue;
+
 		if (len)
 		{
 			tokenize_command(data);
@@ -56,12 +57,11 @@ void prompt_loop(program_data *data, char *env[])
 			if (feof(stdin))
 			{
 				perror("\n");
-				exit(EXIT_SUCCESS);
+				exit(EXIT_FAILURE);
 			}
 			else
 			{
-				perror("fgets");
-				exit(EXIT_FAILURE);
+				exit(EXIT_SUCCESS);
 			}
 		}
 	}
