@@ -34,6 +34,7 @@ void remove_program_data(program_data *data)
 	if (data->descriptor != STDIN_FILENO) /* non interactive mood */
 		close(data->descriptor);
 
+	free(data->input);
 	free_pointer_array(data->command_tokens);
 }
 /**
