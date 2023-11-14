@@ -18,11 +18,8 @@ void run_command(program_data *data, char *env[])
 
 	dpath = str_clone(getenv("PATH"));
 	dir = strtok(dpath, ":");
-	
-	if (strcmp(data->command_tokens[0], "exit") == 0)
-	{
-		exit(EXIT_FAILURE);
-        }
+
+	handle_exit(data);
 	while (dir != NULL)
 	{
 		snprintf(path, sizeof(path), "%s/%s", dir, data->command_tokens[0]);
@@ -61,4 +58,18 @@ void run_command(program_data *data, char *env[])
 	{
 		waitpid(pid, &status, 0);
 	}
+}
+
+/**
+ * run_command - run command
+ * @data: data struct
+ * Return: void on succes.
+ */
+void handle_exit(program_data *data)
+{
+	if (strcmp(data->command_tokens[0], "exit") == 0)
+        {
+                exit(EXIT_FAILURE);
+        }
+
 }
