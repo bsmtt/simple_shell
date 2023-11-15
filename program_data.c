@@ -14,9 +14,10 @@ void set_program_data(program_data *data, int argc, char *argv[])
 		data->is_current_file = 1; /*interactive mood*/
 	/* check if interactive mood*/
 	if (argc == 1)
-		data->descriptor = STDIN_FILENO, errno = 2;
+		data->descriptor = STDIN_FILENO;
 	else
 	{
+		errno = 2;
 		data->descriptor = open(argv[1], O_RDONLY);
 		if (data->descriptor == -1) /* error opening file */
 		{

@@ -10,9 +10,9 @@ int main(int argc, char *argv[], char *env[])
 {
 	program_data data;
 	(void)env;
-
-	set_program_data(&data, argc, argv);
+	
 	errno = 0;
+	set_program_data(&data, argc, argv);
 	prompt_loop(&data, argv, env);
 	return (0);
 }
@@ -23,7 +23,8 @@ int main(int argc, char *argv[], char *env[])
 void prompt_msg(int opr)
 {
 	(void)opr;
-	_write_txt("$");
+	if (errno == 0)
+		_write_txt("$");
 }
 /**
  * prompt_loop - loop to show prompt
