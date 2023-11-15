@@ -8,7 +8,8 @@
 void run_command(program_data *data, char *argv[], char *env[])
 {
 	pid_t pid;
-	int status, found = 0;
+	int found = 0;
+	int status;
 	char path[256];
 	char *dpath, *dir;
 
@@ -47,7 +48,13 @@ void run_command(program_data *data, char *argv[], char *env[])
 	else if (pid == 0)
 		execve(path, data->command_tokens, env);
 	else
-		waitpid(pid, &status, 0);
+	{
+		wait(&status);
+		if (WIFEXITED(status))
+			errno = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			errno = 128 + WTERMSIG(status);
+	}
 	free(dpath);
 }
 

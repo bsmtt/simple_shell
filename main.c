@@ -56,7 +56,7 @@ void prompt_loop(program_data *data, char *argv[], char *env[])
 			run_command(data, argv, env);
 			if (!data->is_current_file && data->descriptor == STDIN_FILENO)
 			{
-				exit(EXIT_FAILURE);
+				exit(errno);
 			}
 		}
 	}
