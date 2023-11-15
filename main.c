@@ -12,7 +12,7 @@ int main(int argc, char *argv[], char *env[])
 	(void)env;
 
 	set_program_data(&data, argc, argv);
-	prompt_loop(&data, env);
+	prompt_loop(&data, argv, env);
 	return (0);
 }
 /**
@@ -26,9 +26,10 @@ void prompt_msg(int opr)
 }
 /**
  * prompt_loop - loop to show prompt
+ * @argv: values of arguments
  * @data: program data
  */
-void prompt_loop(program_data *data, char *env[])
+void prompt_loop(program_data *data, char *argv[], char *env[])
 {
 	size_t size = 40;
 	int len;
@@ -50,7 +51,7 @@ void prompt_loop(program_data *data, char *env[])
 		if (len)
 		{
 			tokenize_command(data);
-			run_command(data, env);
+			run_command(data, argv, env);
 			if (!data->is_current_file && data->descriptor == STDIN_FILENO)
 				exit(EXIT_FAILURE);
 		}

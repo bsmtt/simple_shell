@@ -7,7 +7,7 @@
  * @buffer : buffer
  * Return: void on succes.
  */
-void run_command(program_data *data, char *env[])
+void run_command(program_data *data, char *argv[], char *env[])
 {
 	pid_t pid;
 	int status;
@@ -40,7 +40,8 @@ void run_command(program_data *data, char *env[])
 
 	if (!found)
 	{
-		printf("Command not found: %s\n", data->command_tokens[0]);
+		_write_txt(argv[0]);
+		_write_txt(": No such file or directory\n");
 		return;
 	}
 
