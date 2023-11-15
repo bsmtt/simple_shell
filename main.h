@@ -25,6 +25,7 @@ typedef struct program_data
 	char **command_tokens;
 	char *input;
 	int descriptor;
+	int is_current_file;
 } program_data;
 
 void set_program_data(program_data *data, int argc, char *argv[]);

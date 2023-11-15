@@ -8,9 +8,12 @@
 void set_program_data(program_data *data, int argc, char *argv[])
 {
 	data->command_tokens = NULL; /* tokenize command */
-
+	data->is_current_file = 0;
 	/* check if interactive mood*/
-	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) && argc == 1)
+	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO))
+		data->is_current_file = 1; /*interactive mood*/
+	/* check if interactive mood*/
+	if (argc == 1)
 		data->descriptor = STDIN_FILENO; /*interactive mood*/
 	else
 	{
