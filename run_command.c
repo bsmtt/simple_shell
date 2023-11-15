@@ -61,7 +61,7 @@ void run_command(program_data *data, char *env[])
 }
 
 /**
- * run_command - run command
+ * handle_exit - run command
  * @data: data struct
  * Return: void on succes.
  */
@@ -69,6 +69,7 @@ void handle_exit(program_data *data)
 {
 	if (strcmp(data->command_tokens[0], "exit") == 0)
         {
+		remove_program_data(data);
                 exit(EXIT_FAILURE);
         }
 
