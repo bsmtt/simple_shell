@@ -46,26 +46,15 @@ void prompt_loop(program_data *data, char *argv[], char *env[])
 		prompt_msg(0);
 
 		len = _getline(data);
-		if (len == 1 || len == 0)
-			continue;
-
-		if (len)
+		if (len == -1)
+			exit(errno);
+		else if (len > 1)
 		{
 			tokenize_command(data);
 			run_command(data, argv, env);
 			if (!data->is_current_file && data->descriptor == STDIN_FILENO)
-				exit(EXIT_FAILURE);
-		}
-		else
-		{
-			if (feof(stdin))
 			{
-				perror("\n");
 				exit(EXIT_FAILURE);
-			}
-			else
-			{
-				exit(EXIT_SUCCESS);
 			}
 		}
 	}
