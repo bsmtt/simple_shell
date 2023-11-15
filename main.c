@@ -45,12 +45,14 @@ void prompt_loop(program_data *data, char *env[])
 		/*getline(&data->input, &size, stdin);*/
 		len = _getline(data);
 		if (len == 1 || len == 0)
-                        continue;
+			continue;
 
 		if (len)
 		{
 			tokenize_command(data);
 			run_command(data, env);
+			if (!data->is_current_file && data->descriptor == STDIN_FILENO)
+				exit(EXIT_FAILURE);
 		}
 		else
 		{
