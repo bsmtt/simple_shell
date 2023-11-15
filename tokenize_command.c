@@ -14,7 +14,6 @@ data->input[strcspn(data->input, "\n")] = '\0';
 while (data->input[length - i] == ' ')
 {
 data->input[length - i] = '\0';
-printf("%s \n", data->input);
 i++;
 }
 
