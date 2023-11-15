@@ -15,10 +15,11 @@
 #define BUFFER_SIZE 1024
 
 /**
- * program_data - loop to show prompt
+ * program_data- loop to show prompt
  * @command_tokens: command tokens
  * @input: input line
  * @descriptor: file descriptor
+ * @is_current_file: current file flag
  */
 typedef struct program_data
 {
