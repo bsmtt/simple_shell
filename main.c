@@ -12,6 +12,7 @@ int main(int argc, char *argv[], char *env[])
 	(void)env;
 
 	set_program_data(&data, argc, argv);
+	errno = 0;
 	prompt_loop(&data, argv, env);
 	return (0);
 }
@@ -22,7 +23,7 @@ int main(int argc, char *argv[], char *env[])
 void prompt_msg(int opr)
 {
 	(void)opr;
-	_write_txt("$ ");
+	_write_txt("$");
 }
 /**
  * prompt_loop - loop to show prompt
@@ -60,7 +61,6 @@ void prompt_loop(program_data *data, char *argv[], char *env[])
 		{
 			if (feof(stdin))
 			{
-				perror("\n");
 				exit(EXIT_FAILURE);
 			}
 			else
