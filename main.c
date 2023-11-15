@@ -16,7 +16,7 @@ int main(int argc, char *argv[], char *env[])
 	return (0);
 }
 /**
- * prmpt_msg - write prompt message
+ * prompt_msg - write prompt message
  * @opr: not used input
  */
 void prompt_msg(int opr)
@@ -27,6 +27,7 @@ void prompt_msg(int opr)
 /**
  * prompt_loop - loop to show prompt
  * @data: program data
+ * @env: environment variables
  */
 void prompt_loop(program_data *data, char *env[])
 {
@@ -42,7 +43,7 @@ void prompt_loop(program_data *data, char *env[])
 	while (1)
 	{
 		prompt_msg(0);
-		/*getline(&data->input, &size, stdin);*/
+
 		len = _getline(data);
 		if (len == 1 || len == 0)
 			continue;

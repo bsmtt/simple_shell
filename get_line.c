@@ -15,7 +15,7 @@ int _getline(program_data *data)
 	int i = 0;
 	int j = 0;
 	int c = 0;
-	
+
 	if (!commands[0] || operators[0] == '&' || operators[0] == '|')
 	{
 		while (commands[i])
@@ -27,7 +27,7 @@ int _getline(program_data *data)
 		bytes = read(data->descriptor, &buffer, BUFFER_SIZE - 1);
 		if (bytes == 0)
 			return (-1);
-		
+
 		if (strlen(buffer) == 1)
 			return (0);
 		commands[j] = strdup(strtok(buffer, "\n;"));
@@ -45,14 +45,22 @@ int _getline(program_data *data)
 	}
 	return (strlen(data->input));
 }
-
+/**
+ * _ops - ops.
+ * @commands: commands list
+ * @j: index
+ * @operators: operators
+ * Return: ops
+ */
 int _ops(char *commands[], int j, char operators[])
 {
 	char *temp;
 	int i;
+
 	while (commands[j] != NULL && commands[j][i])
 	{
-		if ((commands[j][i] == '&' && commands[j][i + 1] == '&') || (commands[j][i] == '|' && commands[j][i + 1] == '|'))
+		if ((commands[j][i] == '&' && commands[j][i + 1] == '&') ||
+		(commands[j][i] == '|' && commands[j][i + 1] == '|'))
 		{
 			temp = commands[j];
 			operators[j] = commands[j][i];

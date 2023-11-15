@@ -2,23 +2,18 @@
 
 /**
  * run_command - run command
- * @env: number of arguments
- * @argv: values of arguments
- * @buffer : buffer
- * Return: void on succes.
+ * @data: program data
+ * @env: environment variables array
  */
 void run_command(program_data *data, char *env[])
 {
 	pid_t pid;
-	int status;
+	int status, found = 0;
 	char path[256];
-	int found = 0;
-	char *dpath;
-	char *dir;
+	char *dpath, *dir;
 
 	dpath = str_clone(getenv("PATH"));
 	dir = strtok(dpath, ":");
-
 	handle_exit(data);
 	while (dir != NULL)
 	{
@@ -29,21 +24,18 @@ void run_command(program_data *data, char *env[])
 			break;
 		}
 		dir = strtok(NULL, ":");
-	} 
-
+	}
 	if (!found)
 	{
 		snprintf(path, sizeof(path), "%s", data->command_tokens[0]);
-                if (access(path, F_OK) == 0)
-                        found = 1;
+		if (access(path, F_OK) == 0)
+			found = 1;
 	}
-
 	if (!found)
 	{
 		printf("Command not found: %s\n", data->command_tokens[0]);
 		return;
 	}
-
 	pid = fork();
 	if (pid == -1)
 	{
@@ -51,26 +43,21 @@ void run_command(program_data *data, char *env[])
 		exit(EXIT_FAILURE);
 	}
 	else if (pid == 0)
-	{
 		execve(path, data->command_tokens, env);
-	}
 	else
-	{
 		waitpid(pid, &status, 0);
-	}
 }
 
 /**
  * handle_exit - run command
+ * @data: program data
  * @data: data struct
- * Return: void on succes.
  */
 void handle_exit(program_data *data)
 {
 	if (strcmp(data->command_tokens[0], "exit") == 0)
-        {
+	{
 		remove_program_data(data);
-                exit(EXIT_FAILURE);
-        }
-
+		exit(EXIT_FAILURE);
+	}
 }
