@@ -67,7 +67,7 @@ void handle_exit(program_data *data)
 {
 	if (strcmp(data->command_tokens[0], "exit") == 0)
 	{
-		remove_program_data(data);
+		remove_program_data(data, 1);
 		exit(EXIT_FAILURE);
 	}
 }

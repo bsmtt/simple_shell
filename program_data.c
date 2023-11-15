@@ -33,9 +33,9 @@ void set_program_data(program_data *data, int argc, char *argv[])
  * remove_program_data - remove saved program data
  * @data: struct of program data
  */
-void remove_program_data(program_data *data)
+void remove_program_data(program_data *data, int freeAll)
 {
-	if (data->descriptor != STDIN_FILENO) /* non interactive mood */
+	if (data->descriptor != STDIN_FILENO && freeAll) /* non interactive mood */
 		close(data->descriptor);
 
 	free(data->input);

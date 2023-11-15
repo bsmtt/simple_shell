@@ -10,7 +10,7 @@ int main(int argc, char *argv[], char *env[])
 {
 	program_data data;
 	(void)env;
-	
+
 	errno = 0;
 	set_program_data(&data, argc, argv);
 	prompt_loop(&data, argv, env);
@@ -49,15 +49,20 @@ void prompt_loop(program_data *data, char *argv[], char *env[])
 
 		len = _getline(data);
 		if (len == -1)
+		{
+			remove_program_data(data, 1);
 			exit(errno);
+		}
 		else if (len > 1)
 		{
 			tokenize_command(data);
 			run_command(data, argv, env);
 			if (!data->is_current_file && data->descriptor == STDIN_FILENO)
 			{
+				remove_program_data(data, 1);
 				exit(errno);
 			}
+			remove_program_data(data, 0);
 		}
 	}
 }
