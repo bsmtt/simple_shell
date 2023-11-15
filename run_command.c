@@ -35,18 +35,20 @@ void run_command(program_data *data, char *argv[], char *env[])
 	{
 		_write_txt(argv[0]);
 		_write_txt(": No such file or directory\n");
+		free(dpath);
 		return;
 	}
 	pid = fork();
 	if (pid == -1)
 	{
-		_write_txt("fork");
+		free(dpath);
 		exit(EXIT_FAILURE);
 	}
 	else if (pid == 0)
 		execve(path, data->command_tokens, env);
 	else
 		waitpid(pid, &status, 0);
+	free(dpath);
 }
 
 /**
