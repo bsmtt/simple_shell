@@ -32,6 +32,7 @@ void set_program_data(program_data *data, int argc, char *argv[])
 /**
  * remove_program_data - remove saved program data
  * @data: struct of program data
+ * @freeAll: int
  */
 void remove_program_data(program_data *data, int freeAll)
 {
