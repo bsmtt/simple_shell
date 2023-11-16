@@ -3,6 +3,7 @@
 /**
  * run_command - run command
  * @data: program data
+ * @argv: argv variables array
  * @env: environment variables array
  */
 void run_command(program_data *data, char *argv[], char *env[])
