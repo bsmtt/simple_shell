@@ -55,7 +55,7 @@ void prompt_loop(program_data *data, char *argv[], char *env[])
 			if (!data->is_current_file && data->descriptor == STDIN_FILENO)
 			{
 				remove_program_data(data, 1);
-				exit(errno);
+				exit(0);
 			}
 			remove_program_data(data, 0);
 		}
