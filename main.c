@@ -42,7 +42,7 @@ void prompt_loop(program_data *data, char *argv[], char *env[])
 
 		len = _getline(data);
 		if (len == 1 || len == 0)
-                        continue;
+			continue;
 		if (len == -1)
 		{
 			remove_program_data(data, 1);
