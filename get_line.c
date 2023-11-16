@@ -11,9 +11,7 @@ int _getline(program_data *data)
 	char buffer[BUFFER_SIZE];
 	static char *commands[10] = {NULL};
 	ssize_t bytes;
-	int i = 0;
-	int j = 0;
-	int c = 0;
+	int i = 0, j = 0, c = 0;
 
 	if (!commands[0])
 	{

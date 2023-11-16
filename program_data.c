@@ -35,11 +35,18 @@ void set_program_data(program_data *data, int argc, char *argv[])
  */
 void remove_program_data(program_data *data, int freeAll)
 {
-	if (data->descriptor != STDIN_FILENO && freeAll) /* non interactive mood */
-		close(data->descriptor);
+	if (data->command_tokens)
+		free_pointer_array(data->command_tokens);
 
-	free(data->input);
-	free_pointer_array(data->command_tokens);
+	data->command_tokens = NULL;
+
+	if (data->descriptor != STDIN_FILENO && freeAll)
+	{
+		close(data->descriptor);
+		if (data->input)
+			free(data->input);
+		data->input = NULL;
+	}
 }
 /**
  * free_pointer_array - free all string pointer in array

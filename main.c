@@ -34,15 +34,8 @@ void prompt_msg(int opr)
  */
 void prompt_loop(program_data *data, char *argv[], char *env[])
 {
-	size_t size = 40;
 	int len;
 
-	data->input = malloc(size * sizeof(char));
-	if (!data->input)
-	{
-		perror("error when allocate input line");
-		exit(1);
-	}
 	while (1)
 	{
 		prompt_msg(0);
