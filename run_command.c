@@ -8,9 +8,7 @@
  */
 void run_command(program_data *data, char *argv[], char *env[])
 {
-	pid_t pid;
 	int found = 0;
-	int status;
 	char path[256];
 	char *dpath, *dir;
 
@@ -35,28 +33,11 @@ void run_command(program_data *data, char *argv[], char *env[])
 	}
 	if (!found)
 	{
-		_write_txt(argv[0]);
-		_write_txt(": No such file or directory\n");
+		_write_txt(argv[0]), _write_txt(": No such file or directory\n");
 		free(dpath);
 		return;
 	}
-	pid = fork();
-	if (pid == -1)
-	{
-		free(dpath);
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-		execve(path, data->command_tokens, env);
-	else
-	{
-		wait(&status);
-		if (WIFEXITED(status))
-			errno = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			errno = 128 + WTERMSIG(status);
-	}
-	free(dpath);
+	_excute(data, path, dpath, env);
 }
 
 /**
@@ -71,4 +52,32 @@ void handle_exit(program_data *data)
 		remove_program_data(data, 1);
 		exit(EXIT_FAILURE);
 	}
+}
+
+/**
+ * _excute - run command
+ * @data: program data
+ * @path: data struct
+ * @dpath: dir path
+ * @env : env
+ */
+void _excute(program_data *data, char *path, char *dpath, char *env[])
+{
+	pid_t pid;
+	int status;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		free(dpath);
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+		execve(path, data->command_tokens, env);
+	else
+	{
+		wait(&status);
+	}
+	free(dpath);
+
 }
