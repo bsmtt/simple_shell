@@ -43,6 +43,6 @@ void prompt_msg(int opr);
 void run_command(program_data *data, char *argv[], char *env[]);
 void handle_exit(program_data *data);
 void prompt_loop(program_data *data, char *argv[], char *env[]);
-int get_path(program_data *data, char *path);
 void _excute(program_data *data, char *path, char *dpath, char *env[]);
+
 #endif
