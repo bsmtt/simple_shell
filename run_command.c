@@ -43,7 +43,6 @@ void run_command(program_data *data, char *argv[], char *env[])
 /**
  * handle_exit - run command
  * @data: program data
- * @data: data struct
  */
 void handle_exit(program_data *data)
 {
@@ -79,5 +78,4 @@ void _excute(program_data *data, char *path, char *dpath, char *env[])
 		wait(&status);
 	}
 	free(dpath);
-
 }
