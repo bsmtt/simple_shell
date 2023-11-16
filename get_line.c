@@ -34,6 +34,15 @@ int _getline(program_data *data)
 	data->input = commands[0];
 	for (i = 0, c = 1; commands[i]; i++, c++)
 		commands[i] = commands[c];
+
+	for (i = 0; i < 10; i++)
+	{
+		if (commands[i])
+		{
+			free(commands[i]);
+			commands[i] = NULL;
+		}
+	}
 	return (strlen(data->input));
 }
 
