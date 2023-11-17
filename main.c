@@ -18,12 +18,11 @@ int main(int argc, char *argv[], char *env[])
 }
 /**
  * prompt_msg - write prompt message
- * @opr: not used input
+ * @descriptor: not used input
  */
-void prompt_msg(int opr)
+void prompt_msg(int descriptor)
 {
-	(void)opr;
-	if (errno == 0)
+	if (descriptor == STDIN_FILENO)
 		_write_txt("$");
 }
 /**
@@ -38,7 +37,7 @@ void prompt_loop(program_data *data, char *argv[], char *env[])
 
 	while (1)
 	{
-		prompt_msg(0);
+		prompt_msg(data->descriptor);
 
 		len = _getline(data);
 		if (len == 1 || len == 0)
