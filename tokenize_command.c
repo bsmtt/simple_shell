@@ -34,7 +34,7 @@ exit(errno);
 }
 
 i = 0;
-data->command_tokens[i] = str_clone(strtok(data->input, del));
+data->command_tokens[i] = strdup(strtok(data->input, del));
 
 while (i < command_count - 1)
 {

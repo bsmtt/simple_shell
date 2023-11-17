@@ -12,7 +12,7 @@ void run_command(program_data *data, char *argv[], char *env[])
 	char path[256];
 	char *dpath, *dir;
 
-	dpath = str_clone(getenv("PATH"));
+	dpath = strdup(getenv("PATH"));
 	dir = strtok(dpath, ":");
 	handle_exit(data);
 	while (dir != NULL)
@@ -34,6 +34,7 @@ void run_command(program_data *data, char *argv[], char *env[])
 	if (!found)
 	{
 		_write_txt(argv[0]), _write_txt(": No such file or directory\n");
+		remove_program_data(data, 1);
 		free(dpath);
 		return;
 	}
